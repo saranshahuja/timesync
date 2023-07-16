@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glassmorphism/glassmorphism.dart';
-import 'package:timefusion/Pages/AddTaskScreen.dart';
+import 'package:timesync/Pages/AddTaskScreen.dart';
 
 import '../Widgets/chatGPT.dart';
 

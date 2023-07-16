@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:timefusion/Pages/HomeScreen.dart';
-import 'package:timefusion/Pages/Signup.dart';
+
+import 'package:timesync/Pages/HomeScreen.dart';
+import 'package:timesync/Pages/Signup.dart';
+
 
 class LoginPage extends StatefulWidget {
   @override
