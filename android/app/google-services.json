@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "134120535416",
+    "project_id": "timefusion-a336e",
+    "storage_bucket": "timefusion-a336e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134120535416:android:03efc75169e266d77a848d",
+        "android_client_info": {
+          "package_name": "com.saransh.timesync"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134120535416-9m1rbdkffr7t1k5pi63ue6qbbrrljvjl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtQokXv4E3ojfFhGV0md8bNhlqN5cEtj8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134120535416-9m1rbdkffr7t1k5pi63ue6qbbrrljvjl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "134120535416-7g6acbfrohkgntfhm45d2st3mo5ot1oj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.timefusion"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
