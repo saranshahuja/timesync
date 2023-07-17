@@ -1,21 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import 'package:timesync/Models/ProjectList.dart';
 import 'package:timesync/Pages/AddTaskScreen.dart';
 
 import '../Widgets/chatGPT.dart';
-
-class Task {
-  String title;
-  String description;
-  DateTime date;
-
-  Task({
-    required this.title,
-    required this.description,
-    required this.date,
-  });
-}
 
 final taskListProvider =
     StateNotifierProvider<TaskList, List<Task>>((ref) => TaskList());

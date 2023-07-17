@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uuid/uuid.dart';
 
+import '../Models/ProjectList.dart';
 import 'HomeScreen.dart';
 
 
@@ -48,7 +50,7 @@ class AddTaskScreen extends ConsumerWidget {
                 final description = _descriptionController.text;
                 final date = DateTime.parse(_dateController.text);
                 if (title.isNotEmpty && description.isNotEmpty && date != null) {
-                  ref.read(taskListProvider.notifier).addTask(Task(title: title, description: description, date: date));
+                  ref.read(taskListProvider.notifier).addTask(Task(title: title, description: description, date: date, id: Uuid().v4()));
                   Navigator.pop(context);
                 }
               },
