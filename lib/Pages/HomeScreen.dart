@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glassmorphism/glassmorphism.dart';
@@ -7,15 +8,26 @@ import 'package:timesync/Pages/AddTaskScreen.dart';
 import '../Widgets/chatGPT.dart';
 
 final taskListProvider =
-    StateNotifierProvider<TaskList, List<Task>>((ref) => TaskList());
+StateNotifierProvider.family<TaskListNotifier, List<Task>, String>((ref, projectId) => TaskListNotifier(projectId, ref.read(taskRepositoryProvider)));
 
-class TaskList extends StateNotifier<List<Task>> {
-  TaskList() : super([]);
+class TaskListNotifier extends StateNotifier<List<Task>> {
+  final String projectId;
+  final TaskRepository taskRepository;
 
-  void addTask(Task task) {
-    state = [...state, task];
+  TaskListNotifier(this.projectId, this.taskRepository) : super([]) {
+    loadTasks();
+  }
+
+  Future<void> loadTasks() async {
+    state = await taskRepository.getTasks(projectId);
+  }
+
+  Future<void> addTask(Task task) async {
+    await taskRepository.addTask(projectId, task);
+    await loadTasks(); // Reload tasks after adding a new one.
   }
 }
+
 
 class HomeScreen extends ConsumerWidget {
   final TextEditingController _taskController = TextEditingController();
@@ -23,7 +35,7 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final taskList = ref.watch(taskListProvider);
+    final taskList = ref.watch(taskListProvider as ProviderListenable);
 
     return Scaffold(
       body: Container(
@@ -291,3 +303,37 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 }
+
+
+
+class TaskRepository {
+  final FirebaseFirestore firestore;
+
+  TaskRepository(this.firestore);
+
+  Future<void> addTask(String projectId, Task task) {
+    return firestore.collection('projects').doc(projectId).collection('tasks').doc(task.id).set({
+      'title': task.title,
+      'description': task.description,
+      'date': task.date.toIso8601String(),
+      'priority': task.priority.index,
+      // Serialize subTasks to JSON, or save them in a different collection
+    });
+  }
+
+  Future<List<Task>> getTasks(String projectId) async {
+    final querySnapshot = await firestore.collection('projects').doc(projectId).collection('tasks').get();
+
+    return querySnapshot.docs.map((doc) {
+      return Task(
+        id: doc.id,
+        title: doc['title'] as String,
+        description: doc['description'] as String,
+        date: DateTime.parse(doc['date'] as String),
+        priority: Priority.values[doc['priority'] as int],
+        subTasks: [], // Deserialize subTasks from JSON, or load them from a different collection
+      );
+    }).toList();
+  }
+}
+

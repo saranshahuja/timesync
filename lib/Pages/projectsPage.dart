@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timesync/Pages/AddProkjectScreen.dart';
 import 'package:timesync/Pages/ProjectDetailsPage.dart';
 import 'package:uuid/uuid.dart';
 import '../Models/ProjectList.dart';
@@ -15,25 +16,38 @@ class ProjectsPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Projects'),
+        title: Text('Projects', style: TextStyle(color: Colors.white),),
+        backgroundColor: const Color(0xFF0e0e0e),
       ),
-      body: ListView.builder(
-        itemCount: projects.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(projects[index].title),
-            subtitle: Text(projects[index].description),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ProjectDetailsPage(project: projects[index])),
-            ),
-          );
-        },
+      body: SafeArea(
+        child: Container(
+          color: const Color(0xFF0e0e0e),
+          child: ListView.builder(
+            itemCount: projects.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(projects[index].title),
+                subtitle: Text(projects[index].description),
+                // onTap: () => Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => ProjectDetailsPage(project: projects[index])),
+                // ),
+              );
+            },
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Ref.watch(projectListProvider.notifier).addProject(
-          Project(id: Uuid().v4(), title: 'New Project', description: 'Description'),
-        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddProjectScreen()),
+          );
+        },
+
+        // => Ref.watch(projectListProvider.notifier).addProject(
+        //   Project(id: Uuid().v4(), title: 'New Project', description: 'Description'),
+        // ),
         child: Icon(Icons.add),
       ),
     );
