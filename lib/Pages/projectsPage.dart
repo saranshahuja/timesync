@@ -28,9 +28,8 @@ class ProjectsPage extends ConsumerWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Ref.watch(projectListProvider.notifier).addProject(
-          Project(id: Uuid().v4(), title: 'New Project', description: 'Description'),
-        ),
+        onPressed: () =>
+        {},
         child: Icon(Icons.add),
       ),
     );

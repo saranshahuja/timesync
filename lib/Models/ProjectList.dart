@@ -30,7 +30,7 @@ class SubTask {
   final String title;
   final String description;
   final DateTime date;
-  final Priority priority;
 
-  SubTask({required this.id, required this.title, required this.description, required this.date, required this.priority});
+
+  SubTask({required this.id, required this.title, required this.description, required this.date});
 }
