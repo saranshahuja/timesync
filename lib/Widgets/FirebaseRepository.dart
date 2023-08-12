@@ -21,7 +21,7 @@ class ProjectRepository {
       return Project(
         id: doc.id,
         title: doc['title'] as String,
-        description: doc['description'] as String,
+        description: doc['description'] as String, tasks: [],
       );
     }).toList();
   }
